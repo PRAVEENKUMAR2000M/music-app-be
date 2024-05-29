@@ -1,12 +1,17 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true }));
 
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    next();
+});
 
 
 app.get("/", (req, res) => {
